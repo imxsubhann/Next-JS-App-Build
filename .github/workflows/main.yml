@@ -1,0 +1,32 @@
+name: Build-Artifacts
+
+on:
+ push:
+  branches: [main]
+
+jobs:
+ Atifcats:
+  runs-on: ubuntu-latest
+
+  steps:
+  - name: checking-Repository
+    uses: actions/checkout@v4
+
+  - name: Installing-Node
+    uses: actions/setup-node@v6.5.0
+    with:
+     node-version: 22.x
+     cache: 'npm'
+
+  - name: Installing Dependencies
+    run: npm install
+
+  - name: Creating-Build
+    run: npm run build
+
+  - name: Artifacts
+    uses: actions/upload-artifact@v7.0.1
+    with:
+     name: nextjs-build
+     path: out/
+     
